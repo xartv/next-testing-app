@@ -1,21 +1,25 @@
 "use client";
 
+import { getPosts } from "@/services/getPosts";
 import { usePosts } from "@/store";
 import Link from "next/link";
 import React, { useEffect } from "react";
+import useSWR from "swr";
 import { shallow } from "zustand/shallow";
 
 function Posts() {
-  const [posts, isLoading, getPosts] = usePosts(
-    (state) => [state.posts, state.isLoading, state.getPosts],
-    shallow
-  );
+  const { data: posts, isLoading } = useSWR("posts", getPosts);
 
-  useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+  //const [posts, isLoading, getPosts] = usePosts(
+  //  (state) => [state.posts, state.isLoading, state.getPosts],
+  //  shallow
+  //);
 
-  const content = posts.map((post: any) => (
+  //useEffect(() => {
+  //  getPosts();
+  //}, [getPosts]);
+
+  const content = posts?.map((post: any) => (
     <li key={post.id}>
       <Link href={`/blog/${post.id}`}>{post.title}</Link>
     </li>
