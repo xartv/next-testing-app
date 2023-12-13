@@ -19,16 +19,6 @@ async function getPost(id: string) {
   ).json();
 }
 
-export async function generateMetadata({
-  params: { id },
-}: PostProps): Promise<Metadata> {
-  const post = await getPost(id);
-
-  return {
-    title: post.title,
-  };
-}
-
 export default function Post({ params: { id } }: PostProps) {
   const [post, setPost] = useState<{ title: string; body: string }>();
 
