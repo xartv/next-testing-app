@@ -7,7 +7,6 @@ export async function GET(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const secretInfo = process.env.SECRET;
   const id = params.id;
   const userAgentHeader = headers().get("User-Agent");
 
@@ -15,5 +14,5 @@ export async function GET(
 
   const post = posts.find((post) => post.id === Number(id));
 
-  return NextResponse.json({ post, userAgentHeader, cookie, secretInfo });
+  return NextResponse.json({ post, userAgentHeader, cookie });
 }
