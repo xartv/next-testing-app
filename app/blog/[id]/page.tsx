@@ -1,4 +1,7 @@
+"use client";
+
 import { Metadata } from "next";
+import { useEffect, useState } from "react";
 
 type PostProps = {
   params: {
@@ -8,7 +11,7 @@ type PostProps = {
 
 async function getPost(id: string) {
   return (
-    await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    await fetch(`/api/posts/${id}`, {
       next: {
         revalidate: 60,
       },
@@ -26,15 +29,19 @@ export async function generateMetadata({
   };
 }
 
-export default async function Post({ params: { id } }: PostProps) {
-  const post = await getPost(id);
+export default function Post({ params: { id } }: PostProps) {
+  const [post, setPost] = useState<{ title: string; body: string }>();
+
+  useEffect(() => {
+    getPost(id).then((data) => setPost(data.post));
+  }, [id]);
 
   console.log(post);
 
   return (
     <>
-      <h1>{post.title}</h1>
-      <p>{post.body}</p>
+      <h1>{post?.title}</h1>
+      <p>{post?.body}</p>
     </>
   );
 }
