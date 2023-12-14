@@ -44,7 +44,7 @@ export const Navigation = ({ navLinks }: Props) => {
           </Link>
         </>
       )}
-      {!isAuth && <Link href="/api/auth/signin">Sign In</Link>}
+      {!isAuth && <Link href="/signin">Sign In</Link>}
     </>
   );
 };
