@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   title: "Blog | Next testing app",
 };
 
+export const revalidate = 10;
+
 export default function Blog() {
   return (
     <>
