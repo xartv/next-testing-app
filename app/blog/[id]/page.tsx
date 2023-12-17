@@ -1,6 +1,6 @@
 "use client";
 
-import { Metadata } from "next";
+import { getPost } from "@/services/getPost";
 import { useEffect, useState } from "react";
 
 type PostProps = {
@@ -9,24 +9,12 @@ type PostProps = {
   };
 };
 
-async function getPost(id: string) {
-  return (
-    await fetch(`/api/posts/${id}`, {
-      next: {
-        revalidate: 60,
-      },
-    })
-  ).json();
-}
-
 export default function Post({ params: { id } }: PostProps) {
   const [post, setPost] = useState<{ title: string; body: string }>();
 
   useEffect(() => {
-    getPost(id).then((data) => setPost(data.post));
+    getPost(id).then(setPost);
   }, [id]);
-
-  console.log(post);
 
   return (
     <>
