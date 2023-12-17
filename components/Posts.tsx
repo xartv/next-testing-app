@@ -8,16 +8,16 @@ import useSWR from "swr";
 import { shallow } from "zustand/shallow";
 
 function Posts() {
-  const { data: posts, isLoading } = useSWR("posts", getPosts);
+  //const { data: posts, isLoading } = useSWR("posts", getPosts);
 
-  //const [posts, isLoading, getPosts] = usePosts(
-  //  (state) => [state.posts, state.isLoading, state.getPosts],
-  //  shallow
-  //);
+  const [posts, isLoading, getPosts] = usePosts(
+    (state) => [state.posts, state.isLoading, state.getPosts],
+    shallow
+  );
 
-  //useEffect(() => {
-  //  getPosts();
-  //}, [getPosts]);
+  useEffect(() => {
+    getPosts();
+  }, [getPosts]);
 
   const content = posts?.map((post: any) => (
     <li key={post.id}>
